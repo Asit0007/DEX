@@ -1,13 +1,30 @@
 
-// connect to Moralis server
-const serverUrl = "https://kl2v128s0uzy.usemoralis.com:2053/server";
-const appId = "mbH4DJOsRPhRJDz91bw549pyNCrN2IP3B55X1HJf";
-Moralis.start({ serverUrl, appId });
+// Moralis v1 server — ARCHIVED 2022 DEMO, NON-FUNCTIONAL.
+//
+// The server URL and application id that used to be hardcoded right here have
+// been removed. They were dead either way: Moralis sunset v1 server hosting, and
+// that host no longer resolves. But a v1 appId plus serverUrl is not a harmless
+// public identifier the way a Firebase web key is — together they are the
+// credentials for a Parse Server backend, enough to sign up users, read and
+// write any class with a permissive CLP, and call cloud functions. Committing
+// them to a public repository was the mistake; the server dying is what made it
+// stop mattering.
+//
+// Nothing here works without a backend, and this is kept as a record of 2022
+// work rather than a running app. If it is ever revived, put these in a config
+// file that is gitignored, and do not reuse the old pair.
+const serverUrl = "";
+const appId = "";
+if (serverUrl && appId) {
+  Moralis.start({ serverUrl, appId });
+}
 
-//initializing moralis plugins
-Moralis
-    .initPlugins()
-    .then(() => console.log('Plugins have been installed'));
+//initializing moralis plugins (no-op without a server, see above)
+if (serverUrl && appId) {
+  Moralis
+      .initPlugins()
+      .then(() => console.log('Plugins have been installed'));
+}
 // state space
 const $tokenBalanceBody = document.querySelector(".js-token-balances");
 const $selectedToken = document.querySelector('.js-from-token')
